@@ -11,7 +11,19 @@ const BookContextProvider = (props) => {
   });
   
   useEffect(() => {
-    localStorage.setItem('books', JSON.stringify(books))
+
+    fetch("http://localhost:9000/api")
+    .then(result => {
+
+      dispatch({ type: 'GET_BOOKS', books: result});
+
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    
+
+    localStorage.setItem('books', JSON.stringify(books));
   }, [books]);
 
   return (
